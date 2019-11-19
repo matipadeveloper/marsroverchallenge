@@ -20,23 +20,27 @@ public class Rover {
         //initialize variables
         directionFaced = "";
         this.coordinates = new HashMap<>();
+        boolean versplit = false;
 
         //loop used to split data accordlingly
         for(int l = 0; l < initialRoverData.length(); l ++){
 
             if(!initialRoverData.substring(l, l + 1).equals(" ")){
 
-                if(splitAfterWhiteSpace == 0)
+                if(splitAfterWhiteSpace == 0) {
                     this.coordinates.put("x", Integer.parseInt(initialRoverData.substring(l, l + 1)));
-                else if(splitAfterWhiteSpace == 1)
+                    versplit = true;
+                }
+                else if(versplit) {
                     this.coordinates.put("y", Integer.parseInt(initialRoverData.substring(l, l + 1)));
-
+                    versplit = false;
+                }
             } else if(initialRoverData.substring(l, l + 1).equals(" ")) {
                 splitAfterWhiteSpace ++;
             }
 
-            if(splitAfterWhiteSpace == 2 && !initialRoverData.substring(l, l + 1).equals(" ")){
-                    this.directionFaced += initialRoverData.substring(l, l + 1);
+            if(splitAfterWhiteSpace >= 2 && !initialRoverData.substring(l, l + 1).equals(" ")){
+                    this.directionFaced = initialRoverData.substring(l, l + 1);
             }
 
         }
